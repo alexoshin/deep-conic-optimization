@@ -1,0 +1,23 @@
+# Robust MPC SOCPs
+---
+
+device: cuda
+precision: double
+seed: 0
+
+save_path: datasets/robust_mpc_N50/train120
+n_problems: 120
+
+problem_generator: robust_mpc
+fixed_kwargs:
+  N: 50
+  n_masses: 3
+  layout: csr
+
+solver: clarabel
+solver_kwargs:
+  max_iter: 500
+  conv_tol: 1.0e-8
+  verbose: false
+
+max_dual_norm: 150.0

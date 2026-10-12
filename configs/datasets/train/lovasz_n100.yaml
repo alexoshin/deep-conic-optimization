@@ -1,0 +1,21 @@
+# Lovasz theta SDPs
+---
+
+device: cuda
+precision: double
+seed: 0
+
+save_path: datasets/lovasz_theta_n100/train120
+n_problems: 120
+
+problem_generator: lovasz_theta
+fixed_kwargs:
+  n: 100
+  edge_density: 0.5
+  layout: csr
+
+solver: clarabel
+solver_kwargs:
+  max_iter: 1000
+  conv_tol: 1.0e-10
+  verbose: false

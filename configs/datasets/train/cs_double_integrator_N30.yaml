@@ -1,0 +1,41 @@
+# Covariance-steering SDP subproblems for double integrator SCP
+---
+
+device: cuda
+precision: double
+seed: 0
+
+save_path: datasets/cs_double_integrator_N30/train120
+n_problems: 120
+
+problem_generator: cs_double_integrator
+fixed_kwargs:
+  N: 30
+  dt: 0.5
+  sigma_a: 0.1
+  sigma_0: 0.01
+  sigma_N: 0.25
+  scp_max_iters: 1
+  scp_kkt_tol: 1.0e-3
+
+policy: policy.default
+policy_kwargs:
+  rho_ineq_default: 10.0
+
+solver: cosmo
+solver_kwargs:
+  max_iter: 10000
+  eps_abs: 1.0e-10
+  eps_rel: 0.0
+  eps_prim_inf: 0.0
+  eps_dual_inf: 0.0
+  time_limit: null
+  verbose: false
+  print_every: 100
+  check_termination: 1
+  linsys_solve_method: direct
+  adaptive_rho_tolerance: 5.0
+  cg_max_iter: null
+  cg_eps_abs: 1.0e-6
+  cg_eps_rel: 1.0e-6
+  cg_verbose: false

@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "deep-conic-optimization"
+version = "1.0.0"
+description = "Deep Conic Optimization"
+readme = "README.md"
+requires-python = ">=3.14"
+authors = [
+  {name = "Alex Oshin", email = "alexoshin@gatech.edu"},
+]
+dependencies = [
+  "clarabel",
+  "jaxtyping",
+  "numpy",
+  "pydantic>=2",
+  "pyyaml",
+  "scipy",
+  "torch",
+  "tqdm",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+dco-generate = "dco.cli.generate:main"
+dco-train = "dco.cli.train:main"
+dco-benchmark = "dco.cli.benchmark:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["dco"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = ["F722", "F821"]

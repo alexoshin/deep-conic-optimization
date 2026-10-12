@@ -1,0 +1,72 @@
+# Max-cut SDPs
+---
+
+device: cuda
+precision: double
+seed: 0
+
+dataset_path: datasets/max_cut_n50/train120
+n_train_samples: 100
+n_val_samples: 20
+output_dir: outputs
+
+## Learned components
+policy: policy.feedback
+policy_kwargs:
+  rho_eq_default: 100.0
+  rho_ineq_default: 0.1
+  rho_soc_default: 0.1
+  rho_psd_default: 0.1
+  alpha_default: 1.6
+  hidden_sizes: [32, 32]
+  rho_min: 1.0e-3
+  rho_max: 1.0e+3
+  rectify_rhos_per_cone: true
+initialization: init.ws_row_mlp
+initialization_kwargs:
+  hidden_sizes: [64, 64]
+  use_global_context: true
+
+## Baseline settings
+baseline_policy: policy.adaptive_osqp
+baseline_policy_kwargs:
+  rho_eq_default: 100.0
+  rho_ineq_default: 0.1
+  rho_soc_default: 0.1
+  rho_psd_default: 0.1
+  alpha_default: 1.6
+baseline_initialization: init.default
+baseline_adaptive_rho_tolerance: 5.0
+
+## Unrolling settings
+train_iters: 300
+val_iters: 300
+adaptive_rho_tolerance: 1.0
+sigma: 1.0e-6
+linsys_solve_method: indirect
+cg_preconditioner: jacobi
+cg_eps_abs: 0.0
+cg_eps_rel: 1.0e-8
+cg_max_iter: 10000
+cg_backward_eps_abs: 0.0
+cg_backward_eps_rel: 1.0e-6
+adjoint_warm_start: true
+gradient_method: dk
+mode: super_batched
+
+## Training settings
+n_epochs: 60
+batch_size: 5
+learning_rate: 1.0e-3
+lr_schedule: cosine
+final_learning_rate: 1.0e-4
+eval_every_n_epochs: 1
+clip_grad_norm: 1.0
+best_metric: loss
+early_stopping_patience: null
+loss_kwargs:
+  metric: residuals_sq
+  all_iterates: true
+  normalization: initial_gap
+  transform: log
+  discount_factor: 1.0

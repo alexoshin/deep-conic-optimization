@@ -1,0 +1,23 @@
+# Robust MPC SOCPs (held-out test set)
+---
+
+device: cuda
+precision: double
+seed: 1
+
+save_path: datasets/robust_mpc_N50/test100
+n_problems: 100
+
+problem_generator: robust_mpc
+fixed_kwargs:
+  N: 50
+  n_masses: 3
+  layout: csr
+
+solver: clarabel
+solver_kwargs:
+  max_iter: 500
+  conv_tol: 1.0e-8
+  verbose: false
+
+max_dual_norm: 150.0

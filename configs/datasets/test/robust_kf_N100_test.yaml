@@ -1,0 +1,20 @@
+# Robust Kalman filter SOCPs (held-out test set)
+---
+
+device: cuda
+precision: double
+seed: 1
+
+save_path: datasets/robust_kf_N100/test100
+n_problems: 100
+
+problem_generator: robust_kf
+fixed_kwargs:
+  N: 100
+  layout: csr
+
+solver: clarabel
+solver_kwargs:
+  max_iter: 1000
+  conv_tol: 1.0e-10
+  verbose: false

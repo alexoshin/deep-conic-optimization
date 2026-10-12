@@ -1,0 +1,21 @@
+# Max-cut SDPs
+---
+
+device: cuda
+precision: double
+seed: 0
+
+save_path: datasets/max_cut_n50/train120
+n_problems: 120
+
+problem_generator: max_cut
+fixed_kwargs:
+  n: 50
+  edge_density: 0.5
+  layout: csr
+
+solver: clarabel
+solver_kwargs:
+  max_iter: 1000
+  conv_tol: 1.0e-10
+  verbose: false
